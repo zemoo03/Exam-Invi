@@ -1,81 +1,188 @@
-import React from 'react';
-import MainLayout from '../layouts/MainLayout';
-import { Mail, MessageCircle, MapPin, Send, Phone, ArrowRight, Zap, Globe } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, MessageCircle, MapPin, Send, Phone, Clock } from 'lucide-react';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        type: 'student',
+        message: ''
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission
+        alert('Message sent successfully! We will get back to you soon.');
+        setFormData({ name: '', email: '', type: 'student', message: '' });
+    };
+
+    const contactInfo = [
+        {
+            label: 'Email Support',
+            value: 'support@inviguard.com',
+            icon: Mail,
+            color: 'primary',
+            description: 'Get response within 24 hours'
+        },
+        {
+            label: 'WhatsApp',
+            value: '+91 98765 43210',
+            icon: MessageCircle,
+            color: 'secondary',
+            description: 'Instant support available'
+        },
+        {
+            label: 'Office Address',
+            value: 'Sector 62, Electronic City, Noida',
+            icon: MapPin,
+            color: 'accent',
+            description: 'Visit us Mon-Sat, 9AM-6PM'
+        },
+    ];
+
     return (
-        <div className="bg-mesh min-h-screen pt-20">
-            <div className="container py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
-                    <div className="animate-up">
-                        <span className="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Let's Connect</span>
-                        <h1 className="text-6xl md:text-8xl font-black mb-10 tracking-tighter leading-[0.95]">
-                            Get in <br />
-                            <span className="text-primary italic">Touch.</span>
+        <div className="contact-page">
+            {/* Hero Section */}
+            <section className="contact-hero">
+                <div className="container">
+                    <div className="contact-hero-content">
+                        <span className="contact-tag">Let's Connect</span>
+                        <h1 className="contact-title">
+                            Get in <span>Touch</span>
                         </h1>
-                        <p className="text-xl text-text-muted font-medium mb-16 max-w-md leading-relaxed">
-                            Whether you're a student looking for work or an institution seeking staff, we respond in minutes.
+                        <p className="contact-subtitle">
+                            Have questions about invigilation duties? Need help with registration?
+                            We're here to help students and institutions.
                         </p>
-
-                        <div className="flex flex-col gap-10">
-                            {[
-                                { label: 'General Support', val: 'support@inviguard.com', icon: Mail, color: 'primary' },
-                                { label: 'Instant WhatsApp', val: '+91 98765 43210', icon: MessageCircle, color: 'secondary' },
-                                { label: 'Corporate Office', val: 'Electronic City, Noida', icon: MapPin, color: 'accent' },
-                            ].map((item, i) => (
-                                <div key={i} className="flex items-center gap-8 group cursor-pointer">
-                                    <div className={`w-16 h-16 rounded-3xl bg-white shadow-premium flex items-center justify-center text-${item.color} group-hover:bg-${item.color} group-hover:text-white transition-all`}>
-                                        <item.icon size={24} strokeWidth={2.5} />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-xs font-black uppercase tracking-widest text-text-muted mb-1">{item.label}</h4>
-                                        <p className="text-xl font-black tracking-tight">{item.val}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
                     </div>
+                </div>
+            </section>
 
-                    <div className="animate-up" style={{ animationDelay: '0.1s' }}>
-                        <div className="bg-white p-12 md:p-16 rounded-[4rem] shadow-premium border border-border relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+            {/* Main Content */}
+            <section className="contact-content">
+                <div className="container">
+                    <div className="contact-grid">
+                        {/* Contact Info */}
+                        <div className="contact-info">
+                            <h2>Contact Information</h2>
+                            <p>Reach out to us through any of these channels</p>
 
-                            <h3 className="text-3xl font-black mb-10 tracking-tight">Drop a Message</h3>
-
-                            <form className="flex flex-col gap-8" onSubmit={e => e.preventDefault()}>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="flex flex-col gap-3">
-                                        <label className="text-xs font-black uppercase tracking-widest text-text-muted">Full Name</label>
-                                        <input type="text" placeholder="John Doe" className="w-full px-8 py-5 bg-surface rounded-2xl border border-border focus:border-primary outline-none transition-all font-medium" />
+                            <div className="contact-cards">
+                                {contactInfo.map((item, i) => (
+                                    <div key={i} className={`contact-card contact-card-${item.color}`}>
+                                        <div className="contact-card-icon">
+                                            <item.icon size={24} />
+                                        </div>
+                                        <div className="contact-card-content">
+                                            <span className="contact-card-label">{item.label}</span>
+                                            <span className="contact-card-value">{item.value}</span>
+                                            <span className="contact-card-desc">{item.description}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col gap-3">
-                                        <label className="text-xs font-black uppercase tracking-widest text-text-muted">Email Address</label>
-                                        <input type="email" placeholder="john@example.com" className="w-full px-8 py-5 bg-surface rounded-2xl border border-border focus:border-primary outline-none transition-all font-medium" />
+                                ))}
+                            </div>
+
+                            {/* Office Hours */}
+                            <div className="office-hours">
+                                <div className="office-hours-icon">
+                                    <Clock size={20} />
+                                </div>
+                                <div className="office-hours-content">
+                                    <h4>Office Hours</h4>
+                                    <p>Monday - Saturday: 9:00 AM - 6:00 PM</p>
+                                    <p>Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Contact Form */}
+                        <div className="contact-form-wrapper">
+                            <div className="contact-form-card">
+                                <div className="contact-form-header">
+                                    <h3>Send us a Message</h3>
+                                    <p>Fill out the form and we'll get back to you shortly</p>
+                                </div>
+
+                                <form onSubmit={handleSubmit} className="contact-form">
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label>Full Name</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Enter your name"
+                                                value={formData.name}
+                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email Address</label>
+                                            <input
+                                                type="email"
+                                                placeholder="Enter your email"
+                                                value={formData.email}
+                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                required
+                                            />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-xs font-black uppercase tracking-widest text-text-muted">Inquiry Type</label>
-                                    <select className="w-full px-8 py-5 bg-surface rounded-2xl border border-border focus:border-primary outline-none transition-all font-bold appearance-none">
-                                        <option>I'm a Student</option>
-                                        <option>I'm an Institution</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
+                                    <div className="form-group">
+                                        <label>I am a</label>
+                                        <select
+                                            value={formData.type}
+                                            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                                        >
+                                            <option value="student">Student looking for invigilation work</option>
+                                            <option value="institution">Institution looking for invigilators</option>
+                                            <option value="other">Other inquiry</option>
+                                        </select>
+                                    </div>
 
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-xs font-black uppercase tracking-widest text-text-muted">Message</label>
-                                    <textarea placeholder="Write your message here..." className="w-full px-8 py-6 bg-surface rounded-2xl border border-border focus:border-primary outline-none transition-all h-40 resize-none font-medium" />
-                                </div>
+                                    <div className="form-group">
+                                        <label>Message</label>
+                                        <textarea
+                                            placeholder="How can we help you?"
+                                            value={formData.message}
+                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                            rows={5}
+                                            required
+                                        />
+                                    </div>
 
-                                <button className="w-full py-6 bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-2xl shadow-primary-glow hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-3">
-                                    <Send size={18} strokeWidth={2.5} /> Deliver Message
-                                </button>
-                            </form>
+                                    <button type="submit" className="contact-submit-btn">
+                                        <Send size={18} />
+                                        Send Message
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="contact-faq">
+                <div className="container">
+                    <div className="faq-header">
+                        <h2>Frequently Asked Questions</h2>
+                        <p>Quick answers to common questions</p>
+                    </div>
+                    <div className="faq-grid">
+                        {[
+                            { q: 'How do I register as a student invigilator?', a: 'Click on "Get Started" and complete the registration with DigiLocker verification.' },
+                            { q: 'What documents are required?', a: 'You need a valid Aadhaar card linked to DigiLocker for instant verification.' },
+                            { q: 'How do I get assigned to exams?', a: 'Once verified, the admin will assign you to upcoming exams based on your location.' },
+                            { q: 'When do I get paid?', a: 'Payments are processed within 7 days after the exam completion.' },
+                        ].map((faq, i) => (
+                            <div key={i} className="faq-item">
+                                <h4>{faq.q}</h4>
+                                <p>{faq.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
