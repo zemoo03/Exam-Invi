@@ -1,98 +1,324 @@
 import React from 'react';
-import MainLayout from '../layouts/MainLayout';
-import { Shield, Target, Eye, Heart, Zap, Users, Globe, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import {
+    Clock, Eye, Zap, Award, GraduationCap,
+    CheckCircle, ArrowRight, Star, Building2, Users, Briefcase
+} from 'lucide-react';
 
 const About = () => {
-    return (
-        <div className="bg-mesh min-h-screen pt-20">
-            <div className="container py-24">
-                {/* Cinematic Header */}
-                <div className="max-w-4xl mx-auto text-center mb-32 animate-up">
-                    <span className="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">The InviGuard Story</span>
-                    <h1 className="text-6xl md:text-8xl font-black mb-10 tracking-tighter leading-[0.95]">
-                        Redefining <br />
-                        <span className="text-primary relative inline-block">
-                            Exam Governance.
-                            <svg className="absolute -bottom-4 left-0 w-full opacity-50" viewBox="0 0 358 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 9C118.957 4.46351 239.428 3.32459 355 9" stroke="#4F46E5" strokeWidth="8" strokeLinecap="round" />
-                            </svg>
-                        </span>
-                    </h1>
-                    <p className="text-2xl text-text-muted font-medium leading-relaxed max-w-3xl mx-auto">
-                        We are India's premier manpower engine, dedicated to building a transparent and ethical ecosystem for student employment and institutional support.
-                    </p>
-                </div>
+    const navigate = useNavigate();
 
-                {/* Vision Blocks */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-40 animate-up" style={{ animationDelay: '0.1s' }}>
-                    <div className="relative">
-                        <div className="absolute -inset-10 bg-primary/5 rounded-full blur-[100px]"></div>
-                        <div className="relative glass p-12 rounded-[3.5rem] shadow-premium border-white group">
-                            <div className="w-20 h-20 rounded-[2rem] bg-indigo-600 text-white flex items-center justify-center mb-10 shadow-2xl shadow-indigo-200 rotate-3 group-hover:rotate-0 transition-transform">
-                                <Shield size={40} strokeWidth={2.5} />
+    return (
+        <div className="home-page">
+            {/* Hero Section */}
+            <section className="hero-section" style={{ minHeight: 'auto', paddingBottom: '4rem' }}>
+                <div className="hero-bg-gradient"></div>
+                <div className="hero-bg-gradient-2"></div>
+
+                <div className="container">
+                    <div className="hero-grid">
+                        {/* Left Content */}
+                        <div className="hero-content animate-up">
+                            <div className="hero-badge">
+                                <span className="hero-badge-dot"></span>
+                                <span className="hero-badge-text">🎓 For College Students</span>
                             </div>
-                            <h3 className="text-4xl font-black mb-6 tracking-tight">Our Core Mission</h3>
-                            <p className="text-xl text-text-muted font-medium leading-relaxed mb-8">
-                                To empower 1,000,000+ students with dignified work opportunities that respect their academic schedules while providing institutions with absolute integrity in exam conduct.
+
+                            <h1 className="hero-title">
+                                Want to Earn <br />
+                                <span className="hero-title-highlight">Just By Sitting?</span>
+                            </h1>
+
+                            <p className="hero-description">
+                                This is your golden opportunity! Become an invigilator and get paid
+                                for supervising entrance exams at your college. Easy work, flexible hours!
                             </p>
-                            <div className="flex flex-wrap gap-4">
-                                <div className="px-5 py-2 bg-surface rounded-full border border-border text-xs font-black uppercase tracking-widest">Ethical</div>
-                                <div className="px-5 py-2 bg-surface rounded-full border border-border text-xs font-black uppercase tracking-widest">Scalable</div>
-                                <div className="px-5 py-2 bg-surface rounded-full border border-border text-xs font-black uppercase tracking-widest">Secure</div>
+
+                            <div className="hero-buttons">
+                                <button
+                                    onClick={() => navigate('/register?role=student')}
+                                    className="hero-btn hero-btn-primary"
+                                >
+                                    <GraduationCap size={22} />
+                                    Join Now
+                                </button>
+                                <button
+                                    onClick={() => navigate('/contact')}
+                                    className="hero-btn hero-btn-secondary"
+                                >
+                                    <Building2 size={22} />
+                                    Learn More
+                                </button>
+                            </div>
+
+                            <div className="hero-stats">
+                                <div className="hero-stats-rating">
+                                    <div className="hero-avatars">
+                                        {[1, 2, 3].map(i => (
+                                            <div key={i} className="hero-avatar">
+                                                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=invig${i}`} alt="avatar" />
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="hero-rating-info">
+                                        <div className="hero-stars">
+                                            {[1, 2, 3, 4, 5].map(i => (
+                                                <Star key={i} size={14} fill="#F59E0B" color="#F59E0B" />
+                                            ))}
+                                        </div>
+                                        <span className="hero-rating-text">Loved by Students</span>
+                                    </div>
+                                </div>
+                                <div className="hero-stats-divider"></div>
+                                <div className="hero-stats-number">
+                                    <span className="hero-stats-value">200+</span>
+                                    <span className="hero-stats-label">Active Invigilators</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Visual */}
+                        <div className="hero-visual">
+                            <div className="hero-visual-glow"></div>
+
+                            {/* Main Card */}
+                            <div className="hero-card animate-float">
+                                <div className="hero-card-header">
+                                    <h3>What You'll Do</h3>
+                                    <div className="hero-card-dots">
+                                        <span className="dot dot-red"></span>
+                                        <span className="dot dot-yellow"></span>
+                                        <span className="dot dot-green"></span>
+                                    </div>
+                                </div>
+
+                                <div className="hero-card-items">
+                                    {[
+                                        { title: 'Supervise Exam Halls', info: 'Easy Task', time: 'Sit & Monitor' },
+                                        { title: 'Ensure Fair Conduct', info: 'Simple Rules', time: 'No Skills Needed' },
+                                        { title: 'Build Experience', info: 'Great for CV', time: 'Leadership Skills' }
+                                    ].map((job, idx) => (
+                                        <div key={idx} className="hero-card-item">
+                                            <div className="hero-card-item-left">
+                                                <div className="hero-card-item-icon">
+                                                    <CheckCircle size={20} />
+                                                </div>
+                                                <div>
+                                                    <h4>{job.title}</h4>
+                                                    <p><Clock size={10} /> {job.time}</p>
+                                                </div>
+                                            </div>
+                                            <div className="hero-card-item-right">
+                                                <span className="slots">{job.info}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button
+                                    className="hero-card-btn"
+                                    onClick={() => navigate('/register')}
+                                >
+                                    Join as Invigilator <ArrowRight size={18} />
+                                </button>
+                            </div>
+
+                            {/* Floating Cards */}
+                            <div className="floating-card floating-card-top">
+                                <div className="floating-card-icon floating-card-icon-green">
+                                    <Users size={20} />
+                                </div>
+                                <div>
+                                    <p className="floating-card-label">Students</p>
+                                    <p className="floating-card-value">200+ Active</p>
+                                </div>
+                            </div>
+
+                            <div className="floating-card floating-card-bottom">
+                                <div className="floating-card-icon floating-card-icon-yellow">
+                                    <Star size={20} />
+                                </div>
+                                <div>
+                                    <p className="floating-card-label">Difficulty</p>
+                                    <p className="floating-card-value">Super Easy</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div className="flex flex-col gap-10">
+            {/* About Section */}
+            <section className="trusted-section" style={{ padding: '4rem 0' }}>
+                <div className="container">
+                    <div className="trusted-content" style={{ flexDirection: 'column', gap: '1rem' }}>
+                        <h4 style={{ fontSize: '0.9rem' }}>What's This All About?</h4>
+                        <p style={{ maxWidth: '700px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: '1.8' }}>
+                            Our college conducts <strong style={{ color: 'var(--text-main)' }}>entrance exams</strong> for aspiring students throughout the year.
+                            We need responsible college students like you to help supervise these exams.
+                            It's the easiest way to gain experience while staying on campus!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Features Section - Why Join */}
+            <section className="features-section">
+                <div className="container">
+                    <div className="features-header animate-up">
+                        <span className="features-tag">Benefits</span>
+                        <h2 className="features-title">Why Become an Invigilator?</h2>
+                        <p className="features-description">Simple work, flexible hours, and valuable experience for your resume.</p>
+                    </div>
+
+                    <div className="features-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
                         {[
                             {
-                                title: 'Organized Infrastructure',
-                                desc: 'Turning scattered manpower into a high-tech verified pool.',
-                                icon: Globe, color: 'secondary'
+                                title: 'Easy Work',
+                                desc: 'Simple supervision tasks. No hard work, just monitoring exam halls!',
+                                icon: Briefcase, color: '#FF6B4E'
                             },
                             {
-                                title: 'Radical Transparency',
-                                desc: 'Every coin earned is tracked and released within 24 hours.',
-                                icon: Zap, color: 'accent'
+                                title: 'Flexible Hours',
+                                desc: 'Choose exams that fit your class schedule. Work when you want.',
+                                icon: Clock, color: '#10B981'
                             },
                             {
-                                title: 'Soft Skill Incubator',
-                                desc: 'Teaching responsibility and leadership early in college life.',
-                                icon: Heart, color: 'primary'
+                                title: 'Super Simple',
+                                desc: 'No special skills needed. Just be present and ensure fair conduct.',
+                                icon: Eye, color: '#F59E0B'
+                            },
+                            {
+                                title: 'Quick & Easy',
+                                desc: 'Each exam session is just a few hours. Perfect for busy students.',
+                                icon: Zap, color: '#8B5CF6'
+                            },
+                            {
+                                title: 'Build Your Resume',
+                                desc: 'Add valuable experience. Shows responsibility & leadership skills.',
+                                icon: Award, color: '#EC4899'
+                            },
+                            {
+                                title: 'Campus Work',
+                                desc: 'Work right here on campus. No commute, no hassle!',
+                                icon: GraduationCap, color: '#06B6D4'
                             }
-                        ].map((item, i) => (
-                            <div key={i} className="flex gap-8 group cursor-default">
-                                <div className={`w-16 h-16 rounded-2xl bg-${item.color}/10 text-${item.color} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
-                                    <item.icon size={28} />
+                        ].map((feature, i) => (
+                            <div key={i} className="feature-card">
+                                <div className="feature-icon" style={{ backgroundColor: `${feature.color}15`, color: feature.color }}>
+                                    <feature.icon size={32} />
                                 </div>
-                                <div>
-                                    <h4 className="text-2xl font-black mb-2 tracking-tight">{item.title}</h4>
-                                    <p className="text-lg text-text-muted font-medium leading-relaxed">{item.desc}</p>
-                                </div>
+                                <h3>{feature.title}</h3>
+                                <p>{feature.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
+            </section>
 
-                {/* Stats / Numbers Section */}
-                <div className="bg-text-main rounded-[4rem] p-16 md:p-24 text-white relative overflow-hidden animate-up" style={{ animationDelay: '0.2s' }}>
-                    <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/20 -skew-x-12 translate-x-1/2"></div>
-                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-                        <div>
-                            <span className="text-7xl font-black font-outfit text-primary block mb-4">120+</span>
-                            <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Partner Institutions</p>
-                        </div>
-                        <div>
-                            <span className="text-7xl font-black font-outfit text-white block mb-4">15k+</span>
-                            <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Staff Network</p>
-                        </div>
-                        <div>
-                            <span className="text-7xl font-black font-outfit text-secondary block mb-4">₹2.5M</span>
-                            <p className="text-xs font-black uppercase tracking-[0.3em] opacity-50">Student Earnings</p>
+            {/* Eligibility Section */}
+            <section className="trusted-section" style={{ padding: '5rem 0', background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)' }}>
+                <div className="container">
+                    <div className="features-header animate-up">
+                        <span className="features-tag">Eligibility</span>
+                        <h2 className="features-title">Who Can Apply?</h2>
+                        <p className="features-description">This opportunity is exclusively for college students!</p>
+                    </div>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                        gap: '1rem',
+                        maxWidth: '800px',
+                        margin: '0 auto'
+                    }}>
+                        {[
+                            'Current college students (any year)',
+                            'Any branch/department welcome',
+                            'Must be reliable and punctual',
+                            'Basic communication skills',
+                            'Available during exam schedules',
+                            'Willing to follow exam protocols'
+                        ].map((item, i) => (
+                            <div
+                                key={i}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '1rem',
+                                    padding: '1rem 1.5rem',
+                                    background: 'white',
+                                    borderRadius: '1rem',
+                                    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+                                    border: '1px solid var(--border)'
+                                }}
+                            >
+                                <div style={{
+                                    width: '36px',
+                                    height: '36px',
+                                    borderRadius: '50%',
+                                    background: '#10B98115',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexShrink: 0
+                                }}>
+                                    <CheckCircle size={18} color="#10B981" />
+                                </div>
+                                <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>{item}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="cta-section">
+                <div className="container">
+                    <div className="cta-card">
+                        <div className="cta-bg"></div>
+                        <div className="cta-content">
+                            <div className="cta-text">
+                                <h2>
+                                    Ready to Get <br />
+                                    <span>Started?</span>
+                                </h2>
+                                <p>Join our team of student invigilators today and gain valuable experience!</p>
+                                <div className="cta-buttons">
+                                    <button onClick={() => navigate('/register')} className="cta-btn-primary">
+                                        Join Now
+                                    </button>
+                                    <button onClick={() => navigate('/contact')} className="cta-btn-secondary">
+                                        Contact Us
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="cta-stats">
+                                <div className="cta-stats-row">
+                                    <div className="cta-stat">
+                                        <h4>Easy</h4>
+                                        <p>Simple Tasks</p>
+                                    </div>
+                                    <div className="cta-stat">
+                                        <h4>Flexible</h4>
+                                        <p>Your Schedule</p>
+                                    </div>
+                                </div>
+                                <div className="cta-stats-row">
+                                    <div className="cta-stat cta-stat-highlight">
+                                        <h4>200+</h4>
+                                        <p>Invigilators</p>
+                                    </div>
+                                    <div className="cta-stat">
+                                        <h4>50+</h4>
+                                        <p>Exams/Year</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };
