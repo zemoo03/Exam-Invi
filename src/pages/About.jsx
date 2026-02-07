@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    Clock, Eye, Zap, Award, GraduationCap,
+    Eye, Zap, GraduationCap,
     CheckCircle, ArrowRight, Star, Building2, Users, Briefcase
 } from 'lucide-react';
 
@@ -168,7 +168,7 @@ const About = () => {
                     <div className="features-header animate-up">
                         <span className="features-tag">Benefits</span>
                         <h2 className="features-title">Why Become an Invigilator?</h2>
-                        <p className="features-description">Simple work, flexible hours, and valuable experience for your resume.</p>
+                        <p className="features-description">Simple work, easy tasks, and a great opportunity for students.</p>
                     </div>
 
                     <div className="features-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
@@ -179,11 +179,6 @@ const About = () => {
                                 icon: Briefcase, color: '#FF6B4E'
                             },
                             {
-                                title: 'Flexible Hours',
-                                desc: 'Choose exams that fit your class schedule. Work when you want.',
-                                icon: Clock, color: '#10B981'
-                            },
-                            {
                                 title: 'Super Simple',
                                 desc: 'No special skills needed. Just be present and ensure fair conduct.',
                                 icon: Eye, color: '#F59E0B'
@@ -192,11 +187,6 @@ const About = () => {
                                 title: 'Quick & Easy',
                                 desc: 'Each exam session is just a few hours. Perfect for busy students.',
                                 icon: Zap, color: '#8B5CF6'
-                            },
-                            {
-                                title: 'Build Your Resume',
-                                desc: 'Add valuable experience. Shows responsibility & leadership skills.',
-                                icon: Award, color: '#EC4899'
                             },
                             {
                                 title: 'Campus Work',

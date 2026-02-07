@@ -142,6 +142,7 @@ router.get('/me', protect, async (req, res) => {
                 email: user.email,
                 role: user.role,
                 phone: user.phone,
+                avatar: user.avatar,
                 digilockerVerified: user.digilockerVerified,
                 digilockerData: user.digilockerData,
                 manualDocuments: user.manualDocuments,
@@ -154,6 +155,89 @@ router.get('/me', protect, async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Failed to get user data',
+            error: error.message
+        });
+    }
+});
+
+// @route   POST /api/auth/google
+// @desc    Handle Google OAuth login/signup from frontend
+// @access  Public
+router.post('/google', async (req, res) => {
+    try {
+        console.log('Google auth request received:', req.body);
+        const { googleId, email, name, avatar } = req.body;
+
+        if (!googleId || !email) {
+            console.log('Missing googleId or email');
+            return res.status(400).json({
+                success: false,
+                message: 'Google ID and email are required'
+            });
+        }
+
+        // Check if user already exists with this Google ID
+        console.log('Looking for user with googleId:', googleId);
+        let user = await User.findOne({ googleId });
+
+        if (!user) {
+            // Check if user exists with same email
+            console.log('Looking for user with email:', email);
+            user = await User.findOne({ email });
+
+            if (user) {
+                // Link Google account to existing user
+                console.log('Linking Google to existing user');
+                user.googleId = googleId;
+                user.avatar = avatar || user.avatar;
+                user.isEmailVerified = true;
+                await user.save({ validateBeforeSave: false });
+            } else {
+                // Create new user
+                console.log('Creating new user');
+                user = new User({
+                    googleId,
+                    name,
+                    email,
+                    avatar,
+                    role: 'student',
+                    isEmailVerified: true
+                });
+                await user.save({ validateBeforeSave: false });
+                console.log('New user created:', user._id);
+            }
+        } else {
+            console.log('User found with googleId:', user._id);
+        }
+
+        // Update last login
+        user.lastLogin = new Date();
+        await user.save({ validateBeforeSave: false });
+
+        // Generate token
+        const token = generateToken(user._id);
+        console.log('Token generated successfully');
+
+        res.json({
+            success: true,
+            message: 'Google login successful',
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                avatar: user.avatar,
+                digilockerVerified: user.digilockerVerified,
+                manualVerified: user.manualDocuments?.verified || false
+            }
+        });
+    } catch (error) {
+        console.error('Google auth error:', error);
+        console.error('Error stack:', error.stack);
+        res.status(500).json({
+            success: false,
+            message: 'Google authentication failed',
             error: error.message
         });
     }

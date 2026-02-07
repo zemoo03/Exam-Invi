@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowRight, Loader, Eye, EyeOff } from 'lucide-react';
 import { authAPI } from '../services/api';
 
 const Login = () => {
     const navigate = useNavigate();
+    const googleButtonRef = useRef(null);
     const [loading, setLoading] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
@@ -13,6 +15,74 @@ const Login = () => {
         password: '',
         remember: false
     });
+
+    // Initialize Google Sign-In
+    useEffect(() => {
+        const initializeGoogle = () => {
+            if (window.google && googleButtonRef.current) {
+                window.google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: handleGoogleResponse,
+                });
+
+                // Render the Google button
+                window.google.accounts.id.renderButton(
+                    googleButtonRef.current,
+                    {
+                        theme: 'outline',
+                        size: 'large',
+                        width: '100%',
+                        text: 'continue_with',
+                        shape: 'rectangular'
+                    }
+                );
+            }
+        };
+
+        // Load Google Identity Services script
+        if (!window.google) {
+            const script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            script.defer = true;
+            script.onload = initializeGoogle;
+            document.body.appendChild(script);
+        } else {
+            initializeGoogle();
+        }
+    }, []);
+
+    const handleGoogleResponse = async (response) => {
+        setGoogleLoading(true);
+        setError('');
+
+        try {
+            // Decode the JWT token from Google
+            const payload = JSON.parse(atob(response.credential.split('.')[1]));
+
+            // Send to backend
+            const result = await authAPI.googleLogin({
+                googleId: payload.sub,
+                email: payload.email,
+                name: payload.name,
+                avatar: payload.picture
+            });
+
+            // Store token and user data
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('user', JSON.stringify(result.user));
+
+            // Redirect based on role
+            if (result.user.role === 'admin') {
+                navigate('/admin/dashboard');
+            } else {
+                navigate('/student/dashboard');
+            }
+        } catch (err) {
+            setError(err.message || 'Google login failed');
+            setGoogleLoading(false);
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -105,6 +175,30 @@ const Login = () => {
                             {error}
                         </div>
                     )}
+
+                    {/* Google Sign In Button - Rendered by Google */}
+                    <div
+                        ref={googleButtonRef}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginBottom: '1.5rem'
+                        }}
+                    ></div>
+
+                    {googleLoading && (
+                        <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                            <Loader size={24} className="animate-spin" style={{ color: 'var(--primary)' }} />
+                            <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+                                Signing in with Google...
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Divider */}
+                    <div className="auth-divider">
+                        <span>Or continue with email</span>
+                    </div>
 
                     <form onSubmit={handleSubmit} className="auth-form">
                         <div className="auth-input-group">

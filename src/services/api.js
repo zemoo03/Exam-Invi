@@ -40,6 +40,12 @@ export const authAPI = {
             body: JSON.stringify(credentials)
         }),
 
+    googleLogin: (googleData) =>
+        apiRequest('/auth/google', {
+            method: 'POST',
+            body: JSON.stringify(googleData)
+        }),
+
     getMe: () => apiRequest('/auth/me'),
 };
 
