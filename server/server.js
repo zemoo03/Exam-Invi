@@ -38,9 +38,22 @@ app.use('/api/exams', examRoutes);
 app.use('/api/centers', centerRoutes);
 app.use('/api/digilocker', digilockerRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Welcome to InviGuard API',
+        version: '1.0.0',
+        documentation: 'https://github.com/zemoo03/Exam-Invi#readme'
+    });
+});
+
 // Health check route
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Invigilation API is running!' });
+    res.json({
+        status: 'ok',
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    });
 });
 
 // Error handling middleware
