@@ -9,6 +9,21 @@ InviGuard is a modern, full-stack application designed to streamline the managem
 - **DigiLocker Verification**: Secure document verification using official government channels.
 - **Premium UI/UX**: Built with React and Vanilla CSS, featuring glassmorphism and smooth animations.
 - **Real-time Management**: Create, publish, and manage exams and invigilators efficiently.
+## 📂 Project Structure
+
+```text
+├── server/               # Node.js Express backend
+│   ├── config/          # Database and Passport config
+│   ├── middleware/      # Auth and logging middleware
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # API endpoints
+│   └── utils/           # Helper functions
+└── src/                 # React frontend
+    ├── components/      # UI components
+    ├── pages/          # Page-level components
+    ├── services/       # API service layers
+    └── layouts/        # Page layouts
+```
 
 ## 🛠️ Tech Stack
 
